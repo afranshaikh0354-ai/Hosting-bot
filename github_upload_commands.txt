@@ -1,0 +1,86 @@
+GITHUB PAR hosting.py UPLOAD KARNE KE COMMANDS
+=============================================
+
+NOTE:
+GitHub par code upload hota hai; bot GitHub par continuously run nahi hota.
+Bot ko run karne ke liye Render/Railway/Koyeb jaise hosting platform ki zaroorat hogi.
+
+1) Termux mein Git install karo:
+
+pkg update -y
+pkg install git -y
+
+2) Download folder mein jao:
+
+cd ~/storage/downloads
+
+3) Project folder banao aur hosting.py copy karo:
+
+mkdir amor-hosting
+cp hosting.py amor-hosting/
+cd amor-hosting
+
+4) requirements.txt file banao:
+
+nano requirements.txt
+
+Iske andar ye lines paste karo:
+
+pyTelegramBotAPI
+requests
+Flask
+qrcode
+Pillow
+psutil
+
+Save: CTRL + X, phir Y, phir Enter.
+
+5) Procfile banao (hosting platform ke liye):
+
+nano Procfile
+
+Iske andar ye line paste karo:
+
+worker: python hosting.py
+
+Save: CTRL + X, phir Y, phir Enter.
+
+6) Git repository banao aur files commit karo:
+
+git init
+git add hosting.py requirements.txt Procfile
+git commit -m "Initial upload"
+
+7) GitHub par naya repository banao.
+Repository ka HTTPS URL copy karo. Phir neeche USERNAME aur REPOSITORY ko apni details se badal kar commands chalao:
+
+git branch -M main
+git remote add origin https://github.com/USERNAME/REPOSITORY.git
+git push -u origin main
+
+AGAR GIT NAME/EMAIL MAANGE:
+
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+Phir commit aur push commands dobara chalao:
+
+git add .
+git commit -m "Initial upload"
+git push -u origin main
+
+IMPORTANT SECURITY:
+- Uploaded Python file mein Telegram bot token hardcoded ho sakta hai.
+- Agar asli token file mein tha ya kahin share/upload ho gaya hai, BotFather se us token ko revoke karke naya token banao.
+- Naya token source code ya public GitHub repository mein mat likho.
+- Token ko hosting platform ke Environment Variables/Secrets mein BOT_TOKEN naam se set karo.
+- Sirf apne bharosemand code ko host karo. Is bot mein users ke bheje hue scripts run karne wala feature ho sakta hai; ise public users ke liye bina strong isolation aur security ke enable mat karo.
+
+TROUBLESHOOTING:
+Agar "remote origin already exists" aaye:
+
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+
+Agar "nothing to commit" aaye, to files pehle hi commit ho sakti hain. Seedha ye chalao:
+
+git push -u origin main
